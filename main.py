@@ -13,26 +13,23 @@ LISTA_COINS = [
     "WBTCUSDT",
 ]
 
-## Sí funciona
 @app.route('/get_crypto_price', methods=['GET'])
 def get_crypto_price():
-    
-    # Obtén el símbolo de la criptomoneda de los parámetros de la consulta
     symbol = request.args.get('symbol', default='BTCUSDT', type=str)
+    binance_url = f"{BINANCE_API_URL}/api/v3/ticker/price?symbol={symbol}"
 
-    
-    # Construye la consulta para el endpoint de la API de Binance
-    response = requests.get(f"{BINANCE_API_URL}/api/v3/ticker/price?symbol={symbol}")
+    response = requests.get(binance_url)
 
-    # Verifica que la respuesta desde Binance sea exitosa
     if response.status_code == 200:
-        # Retorna la respuesta en formato JSON
         return jsonify(response.json()), 200
     else:
-        # En caso de error, retorna un mensaje de error
+        # Imprimimos el código de estado y el cuerpo de la respuesta para depuración
+        print("Error Code:", response.status_code)
+        try:
+            print("Error Body:", response.json())  # Intentamos imprimir el cuerpo del error como JSON
+        except ValueError:  # En caso de que no sea JSON, lo imprimiremos como texto plano
+            print("Error Body:", response.text)
         return jsonify({"error": "Error al obtener la información de la criptomoneda"}), response.status_code
 
-
 if __name__ == '__main__':
-    # Ejecuta la aplicación en el puerto 5000
     app.run(port=5000)
