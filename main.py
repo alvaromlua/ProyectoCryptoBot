@@ -17,9 +17,6 @@ LISTA_COINS = [
 @app.route('/get_crypto_price', methods=['GET'])
 def get_crypto_price():
     
-    _subURL= 'api/v3/ticker/tradingDay'
-
-
     # Obtén el símbolo de la criptomoneda de los parámetros de la consulta
     symbol = request.args.get('symbol', default='BTCUSDT', type=str)
 
