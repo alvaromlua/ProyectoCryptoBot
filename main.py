@@ -1,5 +1,7 @@
-from flask import Flask, jsonify, request
 import requests
+import json
+from flask import Flask, jsonify, request
+
 
 app = Flask(__name__)
 
@@ -18,8 +20,10 @@ def home():
     return "Hola soy CryptoBot!",200
 
 
-@app.route('/ListaCryptos', methods=['GET'])
+@app.route('/ListaCryptos', methods=['POST'])
 def listaCryptos():
+    data = request.get_json()
+    print(json.dumps(data))
     return jsonify(
         {
             'fulfillment_response': {
