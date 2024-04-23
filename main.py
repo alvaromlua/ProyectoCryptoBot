@@ -13,6 +13,27 @@ LISTA_COINS = [
     "WBTCUSDT",
 ]
 
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    return "Hola soy CryptoBot!",200
+
+
+@app.route('/ListaCryptos', methods=['GET'])
+def listaCryptos():
+    return jsonify(
+        {
+            'fulfillment_response': {
+                'messages': [
+                    {
+                        'text': {
+                            'text': ['Bitcoin, BNB, Ethereum']
+                        }
+                    }
+                ]
+            }
+        }
+    )
+    
 @app.route('/get_crypto_price', methods=['GET'])
 def get_crypto_price():
     symbol = request.args.get('symbol', default='BTCUSDT', type=str)
