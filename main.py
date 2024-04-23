@@ -20,7 +20,7 @@ def home():
     return "Hola soy CryptoBot!",200
 
 
-@app.route('/ListaCryptos', methods=['POST'])
+@app.route('/ListaCryptos', methods=['GET', 'POST'])
 def listaCryptos():
     data = request.get_json()
     print(json.dumps(data))
