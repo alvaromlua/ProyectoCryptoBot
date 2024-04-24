@@ -22,8 +22,6 @@ def home():
 
 @app.route('/ListaCryptos', methods=['GET', 'POST'])
 def listaCryptos():
-    data = request.get_json()
-    print(json.dumps(data))
     return jsonify(
         {
             'fulfillment_response': {
